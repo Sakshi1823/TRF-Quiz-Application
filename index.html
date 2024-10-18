@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Registration</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="form-container">
+        <h1>TRF Registration Form</h1>
+        <form id="studentform">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" required><br><br>
+
+            <label for="prn">PRN:</label><br>
+            <input type="text" id="prn" name="prn" maxlength="8" pattern="\d{8}" title="Please enter exactly 8 digits" required><br><br>
+
+            <label for="phone">Phone Number:</label><br>
+            <input type="text" id="phone" name="phone" maxlength="10" pattern="\d{10}" title="Please enter exactly 10 digits" required><br><br>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('studentform').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            
+            const name = document.getElementById('name').value;
+            const prn = document.getElementById('prn').value;
+            const phone = document.getElementById('phone').value;
+
+            const sheetURL = 'https://script.google.com/macros/s/AKfycbwCL2QB8bXYT0xEfgKuMdnbW7-_56PE5qrU16mDsTNYN63tlvQa3g64baKy1nMYy846/exec';
+
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('prn', prn);
+            formData.append('phone', phone);
+
+            fetch(sheetURL, {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                window.location.href = "https://www.menti.com/alo4ha8efb8m"; 
+                
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
